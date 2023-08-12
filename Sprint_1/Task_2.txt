@@ -1,0 +1,11 @@
+#Task_2
+
+There is a directory called somefolder that contains various subdirectories and files. Write script that changes permissions so that:
+for each subdirectory only the owner (and root) of a file can remove the file within that subdirectory;
+for each subdirectory with name sharedfolder files that you create in that subdirectory are owned by the group owning the subdirectory;
+
+#ANSWER_2
+
+#!/bin/bash
+foldername='./somefolder'
+find $foldername -type d -exec chmod 1755 {} \;

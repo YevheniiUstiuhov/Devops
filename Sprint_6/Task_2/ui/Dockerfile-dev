@@ -1,0 +1,5 @@
+FROM node:16
+
+EXPOSE 4201
+
+WORKDIR /usr/src/app/app-ui/

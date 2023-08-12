@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  #Task 3
+  nodejs-server:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile-dev #Dockerfile has differnt name
+    container_name: api
+    ports:
+      - "3080:3080"
+  #Task 4
+  angular-ui:
+    build: 
+        context: ./ui
+        dockerfile: Dockerfile-dev #Dockerfile has differnt name
+    container_name: ui
+    ports:
+      - "4201:4201"
+
+  
+    

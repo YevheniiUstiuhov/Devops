@@ -1,0 +1,6 @@
+#TASK_2
+Using known Linux commands you should increase the value of CPU Load Average above 80%. Write your solution in the processes.sh file.
+
+#Answer_2
+#!/bin/bash
+while true; do :; done

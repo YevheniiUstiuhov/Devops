@@ -1,0 +1,17 @@
+#Task_1
+Write a bash script list_processes.sh that uses the ps command to list all currently running processes, 
+including their respective command names, process IDs (PIDs), and parent process IDs (PPIDs).
+
+#Answer_2
+
+#!/bin/bash
+
+printf "%-20s %-10s %-10s\n" "CMD" "PID" "PPID"
+command_name=$(basename "$0")
+all_pids=$(pidof "$command_name")
+
+for pid in $all_pids; do
+    ppid=$(awk '/PPid:/ {print $2}' "/proc/$pid/status")
+    comm=$(awk '{print $2}' "/proc/$pid/comm")
+    printf "%-20s %-10s %-10s\n" "$comm" "$pid" "$ppid"
+done

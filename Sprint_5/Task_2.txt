@@ -1,0 +1,9 @@
+Generating an SSH Key Pair
+The task:
+
+Generate a key pair using the RSA algorithm with a length of 2048 bits.
+Add the private key to the GitHub Secrets with the name PRIVATE_KEY_ONE.
+Upload the public key to the keys/task1 folder in the format key.pub.
+Generate a key pair using the ed25519 algorithm.
+Add the private key to the GitHub Secrets with the name PRIVATE_KEY_TWO.
+Upload the public key to the keys/task2 folder in the format key.pub.
