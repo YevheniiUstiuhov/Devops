@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:latest"
+  web:
+    build: .
+    container_name: app
+    ports:
+      - "8081:8081"
