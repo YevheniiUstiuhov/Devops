@@ -1,0 +1,13 @@
+Count the number of lines in a text file that start with the string "log". The code should use regular expressions.
+
+Solution:
+
+import re
+
+def count_log_files(filename):
+    with open(filename, 'r') as file:
+        log = 0
+        for i in file:
+            if re.match(r'^log', i):
+                log += 1
+    return log

@@ -1,0 +1,21 @@
+The JSON string and xml string will contain information about books, including their title, author, and publication year.
+Extract the information and store it in a list of dictionaries, where each dictionary represents a book.
+
+Solution:
+
+import json
+import xml.etree.ElementTree as ET
+
+def parse_books(json_string, xml_string):
+    #JSON
+    json_file = json.loads(json_string)
+    books = []
+    for jsbook in json_file: 
+        book = {key: jsbook[key] for key in jsbook}
+        books.append(book)
+    #XML
+    xml = ET.fromstring(xml_string)
+    for xml_book in xml.findall('book'):
+        book = {i.tag: int(i.text) if i.tag == 'year' else i.text for i in xml_book}
+        books.append(book)
+    return books

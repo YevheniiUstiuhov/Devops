@@ -1,0 +1,44 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install MariaDB packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mariadb-server
+    - python3-pymysql
+
+- name: Start and enable MariaDB service
+  systemd:
+    name: mariadb
+    enabled: yes
+    state: started
+
+- name: Configure MariaDB to listen on all IP addresses
+  lineinfile:
+    dest: /etc/mysql/mariadb.conf.d/50-server.cnf
+    regexp: '^bind-address'
+    line: "bind-address = 0.0.0.0"
+
+- name: Create a database
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Allow remote access for db_user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    priv: "{{ db_name }}.*:ALL"
+    host: "%"
+    state: present
+
+- name: Restart MariaDB
+  service:
+    name: mariadb
+    state: restarted
