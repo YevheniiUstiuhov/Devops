@@ -1,0 +1,36 @@
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:3000"
+    environment:
+      - webapp=varlogs
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "9090:3000"
+    depends_on:
+      - loki
+  
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config:/etc/loki/config
+    command: -config.file=/etc/loki/config/loki-config.yaml
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - ./promtail-config:/etc/promtail/config
+    command: -config.file=/etc/promtail/config/promtail-config.yaml
+    depends_on:
+      - loki 
+
+
+
